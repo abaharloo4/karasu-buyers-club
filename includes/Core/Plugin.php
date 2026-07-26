@@ -63,6 +63,9 @@ final class Plugin {
 		// راه‌اندازی سرویس مناسبت‌های خاص.
 		\KarasuBuyersClub\Services\OccasionService::init();
 
+		// راه‌اندازی REST API.
+		\KarasuBuyersClub\REST\RestServiceProvider::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}

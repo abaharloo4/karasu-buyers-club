@@ -3,7 +3,7 @@
   "description": "Karasu Buyers Club — Loyalty & Rewards Plugin for WooCommerce",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "authors": [
     {
       "name": "Karasu Team"
