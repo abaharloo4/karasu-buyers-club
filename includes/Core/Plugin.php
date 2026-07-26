@@ -57,6 +57,9 @@ final class Plugin {
 		// راه‌اندازی هوک‌های ووکامرس.
 		\KarasuBuyersClub\Integrations\WooCommerce\OrderHooks::init();
 
+		// راه‌اندازی دروازه کیف‌پول در چک‌اوت.
+		\KarasuBuyersClub\Integrations\WooCommerce\CheckoutWalletGateway::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
