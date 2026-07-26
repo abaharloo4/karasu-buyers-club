@@ -1,0 +1,80 @@
+<?php
+namespace KarasuBuyersClub\Integrations\SMS;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * پیاده‌سازی سرویس پیامک فرازاس‌ام‌اس (IPPANEL).
+ *
+ * @package KarasuBuyersClub\Integrations\SMS
+ */
+class FarazSmsProvider implements SMS_Provider_Interface {
+
+	/**
+	 * کلید API.
+	 *
+	 * @var string
+	 */
+	private $api_key;
+
+	/**
+	 * شماره خط ارسال‌کننده.
+	 *
+	 * @var string
+	 */
+	private $from_number;
+
+	/**
+	 * سازنده.
+	 *
+	 * @param string $api_key
+	 * @param string $from_number
+	 */
+	public function __construct( string $api_key, string $from_number = '' ) {
+		$this->api_key     = $api_key;
+		$this->from_number = $from_number;
+	}
+
+	/**
+	 * ارسال پیامک از طریق IPPANEL / FarazSMS.
+	 *
+	 * @param string $to
+	 * @param string $message
+	 * @param array  $params
+	 * @return bool
+	 */
+	public function send_sms( string $to, string $message, array $params = [] ): bool {
+		if ( empty( $this->api_key ) || empty( $to ) ) {
+			return false;
+		}
+
+		$url = 'https://api2.ippanel.com/api/v1/sms/send/webservice/single';
+
+		$body = array(
+			'recipient' => array( sanitize_text_field( $to ) ),
+			'sender'    => sanitize_text_field( $this->from_number ),
+			'message'   => sanitize_text_field( $message ),
+		);
+
+		$response = wp_remote_post(
+			$url,
+			array(
+				'headers' => array(
+					'Authorization' => 'AccessKey ' . $this->api_key,
+					'Content-Type'  => 'application/json',
+				),
+				'body'    => wp_json_encode( $body ),
+				'timeout' => 15,
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		return 200 === $code || 201 === $code;
+	}
+}
