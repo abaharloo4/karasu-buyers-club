@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="KarasuBuyersClubRuleset">
+	<description">Ruleset for Karasu Buyers Club WordPress Plugin</description>
+
+	<file>.</file>
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/assets/dist/</exclude-pattern>
+	<exclude-pattern>/src/</exclude-pattern>
+	<exclude-pattern>*.js</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="basepath" value="."/>
+	<arg name="parallel" value="8"/>
+	<arg name="extensions" value="php"/>
+
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+	</rule>
+
+	<config name="minimum_supported_wp_version" value="6.0"/>
+</ruleset>

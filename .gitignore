@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build output (built assets can be included in zip or dist if needed, but ignored in source repo except assets/dist)
+/*.zip
+*.log
+
+# IDE & System
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local env
+.env
+.env.local
