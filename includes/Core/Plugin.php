@@ -66,6 +66,10 @@ final class Plugin {
 		// راه‌اندازی REST API.
 		\KarasuBuyersClub\REST\RestServiceProvider::init();
 
+		// راه‌اندازی تب حساب کاربری و شورت‌کد فرانت‌اند مشتری.
+		\KarasuBuyersClub\Storefront\MyAccountTab::init();
+		\KarasuBuyersClub\Storefront\ClubPageController::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
