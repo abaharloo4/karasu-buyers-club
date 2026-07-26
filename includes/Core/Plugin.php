@@ -51,6 +51,12 @@ final class Plugin {
 		// اعلام سازگاری با HPOS.
 		\KarasuBuyersClub\Integrations\HPOS\CompatibilityDeclaration::init();
 
+		// راه‌اندازی دیتابیس و مایگریشن‌ها.
+		\KarasuBuyersClub\Database\Schema::init();
+
+		// راه‌اندازی هوک‌های ووکامرس.
+		\KarasuBuyersClub\Integrations\WooCommerce\OrderHooks::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}

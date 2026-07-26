@@ -3,7 +3,7 @@
  * Plugin Name: Karasu Buyers Club
  * Plugin URI:  https://github.com/abaharloo4/karasu-buyers-club
  * Description: سیستم هوشمند و مستقل باشگاه مشتریان ووکامرس (امتیازدهی، کیف‌پول، سطح‌بندی، معرفی دوست و اطلاع‌رسانی)
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      Karasu
  * Author URI:  https://github.com/abaharloo4/karasu-buyers-club
  * Text Domain: karasu-buyers-club
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // تعریف ثوابت پروژه.
-define( 'KBC_VERSION', '0.1.0' );
+define( 'KBC_VERSION', '0.2.0' );
 define( 'KBC_PLUGIN_FILE', __FILE__ );
 define( 'KBC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KBC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
