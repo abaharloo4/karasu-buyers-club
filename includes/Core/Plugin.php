@@ -73,6 +73,11 @@ final class Plugin {
 		// راه‌اندازی منوی مدیریت ادمین.
 		\KarasuBuyersClub\Admin\AdminMenu::init();
 
+		// راه‌اندازی ویجت‌های اختصاصی المنتور.
+		if ( did_action( 'elementor/loaded' ) ) {
+			\KarasuBuyersClub\Integrations\Elementor\ElementorInit::init();
+		}
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
