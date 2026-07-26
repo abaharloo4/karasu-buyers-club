@@ -70,6 +70,9 @@ final class Plugin {
 		\KarasuBuyersClub\Storefront\MyAccountTab::init();
 		\KarasuBuyersClub\Storefront\ClubPageController::init();
 
+		// راه‌اندازی منوی مدیریت ادمین.
+		\KarasuBuyersClub\Admin\AdminMenu::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
