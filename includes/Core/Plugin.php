@@ -60,6 +60,9 @@ final class Plugin {
 		// راه‌اندازی دروازه کیف‌پول در چک‌اوت.
 		\KarasuBuyersClub\Integrations\WooCommerce\CheckoutWalletGateway::init();
 
+		// راه‌اندازی سرویس مناسبت‌های خاص.
+		\KarasuBuyersClub\Services\OccasionService::init();
+
 		// بارگذاری فایل‌های زبان.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 	}
