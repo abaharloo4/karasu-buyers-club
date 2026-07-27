@@ -3,8 +3,11 @@ import AdminDashboard from './components/AdminDashboard';
 import PointsSettings from './components/PointsSettings';
 import TiersManager from './components/TiersManager';
 import NotificationSettings from './components/NotificationSettings';
+import OccasionSettings from './components/OccasionSettings';
+import ReferralSettings from './components/ReferralSettings';
 import MemberManagement from './components/MemberManagement';
-import { ShieldCheck, LayoutDashboard, Settings, Award, Bell, Users } from 'lucide-react';
+import ReportsExport from './components/ReportsExport';
+import { ShieldCheck, LayoutDashboard, Settings, Award, Bell, Users, Calendar, Share2, FileSpreadsheet } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -61,19 +64,37 @@ export default function App() {
           onClick={() => setActiveTab('tiers')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'tiers' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
         >
-          <Award className="w-4 h-4" /> مدیریت سطوح (Tiers)
+          <Award className="w-4 h-4" /> مدیریت سطوح
         </button>
         <button
           onClick={() => setActiveTab('notifications')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'notifications' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
         >
-          <Bell className="w-4 h-4" /> تنظیمات درگاه پیامک
+          <Bell className="w-4 h-4" /> درگاه پیامک
+        </button>
+        <button
+          onClick={() => setActiveTab('occasions')}
+          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'occasions' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+        >
+          <Calendar className="w-4 h-4" /> مناسبت‌های خاص
+        </button>
+        <button
+          onClick={() => setActiveTab('referral')}
+          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'referral' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+        >
+          <Share2 className="w-4 h-4" /> معرفی دوست
         </button>
         <button
           onClick={() => setActiveTab('members')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'members' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
         >
           <Users className="w-4 h-4" /> مدیریت اعضا
+        </button>
+        <button
+          onClick={() => setActiveTab('reports')}
+          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${activeTab === 'reports' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}
+        >
+          <FileSpreadsheet className="w-4 h-4" /> خروجی گزارش‌ها
         </button>
       </div>
 
@@ -82,7 +103,10 @@ export default function App() {
         {activeTab === 'points' && <PointsSettings />}
         {activeTab === 'tiers' && <TiersManager />}
         {activeTab === 'notifications' && <NotificationSettings />}
+        {activeTab === 'occasions' && <OccasionSettings />}
+        {activeTab === 'referral' && <ReferralSettings />}
         {activeTab === 'members' && <MemberManagement members={members} onRefresh={fetchMembers} />}
+        {activeTab === 'reports' && <ReportsExport members={members} />}
       </main>
     </div>
   );
