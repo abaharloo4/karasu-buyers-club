@@ -98,6 +98,16 @@ class AdminSettingsController extends WP_REST_Controller {
 				),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/admin/members/(?P<id>[\d]+)/history',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_member_history' ),
+				'permission_callback' => array( PermissionChecker::class, 'check_admin' ),
+			)
+		);
 	}
 
 	/**
@@ -248,6 +258,50 @@ class AdminSettingsController extends WP_REST_Controller {
 			array(
 				'success' => true,
 				'message' => __( 'تغییرات با موفقیت اعمال شد.', 'karasu-buyers-club' ),
+			),
+			200
+		);
+	}
+
+	/**
+	 * دریافت ریز تاریخچه امتیاز، کیف‌پول و ارتقای سطح یک کاربر.
+	 *
+	 * @param WP_REST_Request $request
+	 * @return WP_REST_Response
+	 */
+	public function get_member_history( WP_REST_Request $request ): WP_REST_Response {
+		$user_id = absint( $request->get_param( 'id' ) );
+
+		if ( ! get_userdata( $user_id ) ) {
+			return new WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => __( 'کاربر مورد نظر یافت نشد.', 'karasu-buyers-club' ),
+				),
+				404
+			);
+		}
+
+		$points_repo = new PointsRepository();
+		$wallet_repo = new WalletRepository();
+		$tier_repo   = new \KarasuBuyersClub\Database\Repositories\TierRepository();
+
+		$user_data = get_userdata( $user_id );
+
+		return new WP_REST_Response(
+			array(
+				'success' => true,
+				'data'    => array(
+					'user'           => array(
+						'id'           => $user_id,
+						'name'         => $user_data->display_name,
+						'email'        => $user_data->user_email,
+						'registered'   => $user_data->user_registered,
+						'current_tier' => $tier_repo->get_user_current_tier( $user_id ),
+					),
+					'points_history' => $points_repo->get_user_ledger( $user_id ),
+					'wallet_history' => $wallet_repo->get_user_ledger( $user_id ),
+				),
 			),
 			200
 		);

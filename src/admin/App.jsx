@@ -43,7 +43,7 @@ export default function App() {
           </div>
         </div>
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-          <ShieldCheck className="w-4 h-4" /> نسخه ۱.۰.۰
+          <ShieldCheck className="w-4 h-4" /> نسخه ۱.۰.۱
         </span>
       </header>
 

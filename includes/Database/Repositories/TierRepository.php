@@ -98,16 +98,54 @@ class TierRepository {
 	public function record_tier_achievement( int $user_id, int $tier_id ) {
 		global $wpdb;
 
-		$history_table = $this->get_history_table();
+		return $wpdb->insert(
+			$this->get_history_table(),
+			array(
+				'user_id'     => absint( $user_id ),
+				'tier_id'     => absint( $tier_id ),
+				'achieved_at' => current_time( 'mysql' ),
+			),
+			array( '%d', '%d', '%s' )
+		);
+	}
 
-		$data = array(
-			'user_id'     => absint( $user_id ),
-			'tier_id'     => absint( $tier_id ),
-			'achieved_at' => current_time( 'mysql' ),
+	/**
+	 * ایجاد یا به‌روزرسانی سطح.
+	 *
+	 * @param array $data
+	 * @return int|bool
+	 */
+	public function save_tier( array $data ) {
+		global $wpdb;
+		$table = $this->get_tiers_table();
+
+		$tier_id = ! empty( $data['id'] ) ? absint( $data['id'] ) : 0;
+
+		$fields = array(
+			'name'       => sanitize_text_field( $data['name'] ?? '' ),
+			'threshold'  => floatval( $data['threshold'] ?? 0 ),
+			'benefits'   => isset( $data['benefits'] ) ? ( is_array( $data['benefits'] ) ? wp_json_encode( $data['benefits'] ) : sanitize_text_field( $data['benefits'] ) ) : '{}',
+			'sort_order' => absint( $data['sort_order'] ?? 0 ),
+			'is_active'  => isset( $data['is_active'] ) ? absint( $data['is_active'] ) : 1,
 		);
 
-		$result = $wpdb->insert( $history_table, $data, array( '%d', '%d', '%s' ) );
+		if ( $tier_id > 0 ) {
+			return $wpdb->update( $table, $fields, array( 'id' => $tier_id ) );
+		} else {
+			$wpdb->insert( $table, $fields );
+			return $wpdb->insert_id;
+		}
+	}
 
-		return false !== $result ? $wpdb->insert_id : false;
+	/**
+	 * حذف سطح بر اساس ID.
+	 *
+	 * @param int $tier_id
+	 * @return bool|int
+	 */
+	public function delete_tier( int $tier_id ) {
+		global $wpdb;
+		$table = $this->get_tiers_table();
+		return $wpdb->delete( $table, array( 'id' => absint( $tier_id ) ), array( '%d' ) );
 	}
 }
